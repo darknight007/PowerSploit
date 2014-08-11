@@ -1,4 +1,4 @@
-﻿function Out-Minidump
+function Out-Minidump
 {
 <#
 .SYNOPSIS
@@ -60,7 +60,7 @@
 
 .OUTPUTS
 
-    None
+    System.IO.FileInfo
 
 .LINK
 
@@ -122,7 +122,7 @@
         }
         else
         {
-            Write-Verbose "Success! Minidump written to $ProcessDumpPath."
+            Get-ChildItem $ProcessDumpPath
         }
     }
 

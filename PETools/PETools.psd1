@@ -1,4 +1,4 @@
-﻿@{
+@{
 
 # Script module or binary module file associated with this manifest.
 ModuleToProcess = 'PETools.psm1'
@@ -52,7 +52,7 @@ PowerShellVersion = '2.0'
 # TypesToProcess = @()
 
 # Format files (.ps1xml) to be loaded when importing this module
-FormatsToProcess = 'PETools.format.ps1xml', 'Get-ObjDump.format.ps1xml'
+FormatsToProcess = 'PETools.format.ps1xml', 'Get-ObjDump.format.ps1xml', 'Get-LibSymbols.format.ps1xml'
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
@@ -74,7 +74,7 @@ ModuleList = @(@{ModuleName = 'PETools'; ModuleVersion = '1.0.0.0'; GUID = 'd150
 
 # List of all files packaged with this module
 FileList = 'PETools.psm1', 'PETools.psd1', 'PETools.format.ps1xml', 'Get-DllLoadPath.ps1', 
-               'Get-PEArchitecture.ps1', 'Get-PEHeader.ps1', 'Get-ObjDump.ps1', 'Get-ObjDump.format.ps1xml',
+               'Get-PEHeader.ps1', 'Get-ObjDump.ps1', 'Get-ObjDump.format.ps1xml', 'Get-LibSymbols.ps1',
                'Usage.md'
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess

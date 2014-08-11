@@ -20,10 +20,6 @@ Injects shellcode into the process ID of your choosing or within PowerShell loca
 
 Execute shellcode within the context of the running PowerShell process without making any Win32 function calls.
 
-#### `Watch-BlueScreen`
-
-Cause a blue screen to occur (Windows 7 and below).
-
 ## ScriptModification
 
 **Modify and/or prepare scripts for execution on a compromised machine.**
@@ -48,11 +44,11 @@ Strips comments and extra whitespace from a script.
 
 **Add persistence capabilities to a PowerShell script**
 
-#### `New-UserPersistenceOptions`
+#### `New-UserPersistenceOption`
 
 Configure user-level persistence options for the Add-Persistence function.
 
-#### `New-ElevatedPersistenceOptions`
+#### `New-ElevatedPersistenceOption`
 
 Configure elevated persistence options for the Add-Persistence function.
 
@@ -72,13 +68,21 @@ An in-memory and on-disk PE parsing utility.
 
 Displays information about one or more Windows object files.
 
-#### `Get-PEArchitecture`
+#### `Get-LibSymbols`
 
-Returns the architecture for which an executable was compiled.
+Displays symbolic information from Windows lib files.
 
 #### `Get-DllLoadPath`
 
 Returns the path from which Windows will load a Dll for the given executable.
+
+## Capstone
+
+**A PowerShell binding for the Capstone Engine disassembly framework.**
+
+#### `Get-CSDisassembly`
+
+Disassembles a byte array using the Capstone Engine disassembly framework.
 
 ## ReverseEngineering
 
@@ -104,10 +108,6 @@ Marshals data from an unmanaged block of memory in an arbitrary process to a new
 
 A proxy function used to extend the built-in Get-Member cmdlet. It adds the '-Private' parameter allowing you to display non-public .NET members
 
-#### `New-Object`
-
-A proxy function for New-Object that accepts a CLSID with the -ComObject parameter.
-
 #### `Get-Strings`
 
 Dumps strings from files in both Unicode and Ascii. This cmdlet replicates the functionality of strings.exe from Sysinternals.
@@ -119,6 +119,22 @@ Converts the bytes of a file to a string that has a 1-to-1 mapping back to the f
 #### `Get-MethodAddress`
 
 Get the unmanaged function address of a .NET method.
+
+#### `Register-ProcessModuleTrace`
+
+Starts a trace of loaded process modules
+
+#### `Get-ProcessModuleTrace`
+
+Displays the process modules that have been loaded since the call to Register-ProcessModuleTrace
+
+#### `Unregister-ProcessModuleTrace`
+
+Stops the running process module trace
+
+#### `Get-Entropy`
+
+Calculates the entropy of a file or byte array.
 
 ## AntivirusBypass
 
@@ -132,6 +148,22 @@ Locates single Byte AV signatures utilizing the same method as DSplit from "clas
 
 **All your data belong to me!**
 
+#### `Invoke-TokenManipulation`
+
+Lists available logon tokens. Creates processes with other users logon tokens, and impersonates logon tokens in the current thread.
+
+#### `Invoke-CredentialInjection`
+
+Create logons with clear-text credentials without triggering a suspicious Event ID 4648 (Explicit Credential Logon).
+
+#### `Invoke-NinjaCopy`
+
+Copies a file from an NTFS partitioned volume by reading the raw volume and parsing the NTFS structures.
+
+#### `Invoke-Mimikatz`
+
+Reflectively loads Mimikatz 1.0 in memory using PowerShell. Can be used to dump credentials without writing anything to disk. Can be used for any functionality provided with Mimikatz.
+
 #### `Get-Keystrokes`
 
 Logs keys pressed, time and the active window.
@@ -144,9 +176,29 @@ Retrieves the plaintext password and other information for accounts pushed throu
 
 A function that takes screenshots at a regular interval and saves them to a folder.
 
+#### `Get-VolumeShadowCopy`
+
+Lists the device paths of all local volume shadow copies.
+
+#### `Mount-VolumeShadowCopy`
+
+Mounts a volume shadow copy.
+
+#### `Get-VaultCredential`
+
+Displays Windows vault credential objects including cleartext web credentials.
+
 #### `Out-Minidump`
 
 Generates a full-memory minidump of a process.
+
+## Mayhem
+
+**Cause general mayhem with PowerShell.**
+
+#### `Set-CriticalProcess`
+
+Causes your machine to blue screen upon exiting PowerShell.
 
 ## Recon
 
@@ -174,7 +226,7 @@ Scans an IP address range for DNS PTR records. This script is useful for perform
 
 ## License
 
-The PowerSploit project and all individual scripts are under the [BSD 3-Clause license](https://raw.github.com/mattifestation/PowerSploit/master/LICENSE).
+The PowerSploit project and all individual scripts are under the [BSD 3-Clause license](https://raw.github.com/mattifestation/PowerSploit/master/LICENSE) unless explicitly noted otherwise.
 
 ## Usage
 
@@ -188,6 +240,11 @@ The default computer-level module path is: "$Env:windir\System32\WindowsPowerShe
 To use the module, type `Import-Module PowerSploit`
 
 To see the commands imported, type `Get-Command -Module PowerSploit`
+
+If you're running PowerShell v3 and you want to remove the annoying 'Do you really want to run scripts downloaded from the Internet' warning, once you've placed PowerSploit into your module path, run the following one-liner:
+`$Env:PSModulePath.Split(';') |
+ % { if ( Test-Path (Join-Path $_ PowerSploit) )
+ {Get-ChildItem $_ -Recurse | Unblock-File} }`
 
 For help on each individual command, Get-Help is your friend.
 
@@ -203,7 +260,7 @@ Note: The tools contained within this module were all designed such that they ca
 
 * If you want to display relevant debugging information to the screen, use Write-Verbose. The user can always just tack on '-Verbose'.
 
-* Always provide descriptive, comment-based help for every script. Also, be sure to include your name and a BSD 3-Clause license.
+* Always provide descriptive, comment-based help for every script. Also, be sure to include your name and a BSD 3-Clause license (unless there are extenuating circumstances that prevent the application of the BSD license).
 
 * Make sure all functions follow the proper PowerShell verb-noun agreement. Use Get-Verb to list the default verbs used by PowerShell.
 

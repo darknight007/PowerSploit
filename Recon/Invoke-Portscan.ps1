@@ -1,4 +1,4 @@
-﻿function Invoke-Portscan
+function Invoke-Portscan
 {
 <#
 .SYNOPSIS
@@ -647,14 +647,14 @@ http://webstersprodigy.net
 
             [Environment]::CurrentDirectory=(Get-Location -PSProvider FileSystem).ProviderPath
 
-            if ($Hosts)
+            if ($PsCmdlet.ParameterSetName -eq "cmdHosts")
             {
                 foreach($h in $Hosts)
                 {
                     Parse-Hosts($h) | Out-Null
                 }
             }
-            elseif ($HostFile)
+            else
             {
                 Parse-ILHosts($HostFile) | Out-Null
             }
